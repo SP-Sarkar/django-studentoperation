@@ -25,9 +25,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')  # storage for media files
 SECRET_KEY = '1ta)+0k&dn_#d*qb7z)p%^iaeeext70ju3cxe8zy=1dw^$dl_u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['35.192.26.182']
 
 
 # Application definition
@@ -91,20 +91,7 @@ DATABASES = {
     },
 
 }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'studentop',
-        'USER': 'root',
-        'PASSWORD': 'nopass',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            "init_command": "SET foreign_key_checks = 0;",  # Bug Fix: Multiple ForeignKey in Admin
-        },
-    },
 
-}
 
 
 # Password validation
