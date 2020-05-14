@@ -17,7 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')  # Base templates
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')  # storage for media files
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = '1ta)+0k&dn_#d*qb7z)p%^iaeeext70ju3cxe8zy=1dw^$dl_u'
 DEBUG = False
 
 ALLOWED_HOSTS = ['35.192.26.182']
-
 
 # Application definition
 
@@ -72,26 +70,56 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'studentoperation.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# Database
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# Install PyMySQL as mysqlclient/MySQLdb to use Django's mysqlclient adapter
+# See https://docs.djangoproject.com/en/2.1/ref/databases/#mysql-db-api-drivers
+# for more information
+import pymysql  # noqa: 402
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'studentop',
-        'USER': 'root',
-        'PASSWORD': 'nopass',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            "init_command": "SET foreign_key_checks = 0;",  # Bug Fix: Multiple ForeignKey in Admin
-        },
-    },
+pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
+pymysql.install_as_MySQLdb()
 
-}
-
+# [START db_setup]
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/studentproject-277208:us-central1:student-app-iinstance ',
+            'USER': 'root',
+            'PASSWORD': 'wlentICBgjJ1zHhx',
+            'NAME': 'studentop',
+            'OPTIONS': {
+                "init_command": "SET foreign_key_checks = 0;",  # Bug Fix: Multiple ForeignKey in Admin
+            },
+        }
+    }
+else:
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Cloud SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'studentop',
+            'USER': 'root',
+            'PASSWORD': 'nopass',
+            'OPTIONS': {
+                "init_command": "SET foreign_key_checks = 0;",  # Bug Fix: Multiple ForeignKey in Admin
+            },
+        }
+    }
+# [END db_setup]
 
 
 # Password validation
@@ -112,7 +140,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -125,7 +152,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
