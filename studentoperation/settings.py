@@ -26,7 +26,7 @@ SECRET_KEY = '1ta)+0k&dn_#d*qb7z)p%^iaeeext70ju3cxe8zy=1dw^$dl_u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['34.70.8.150']
+ALLOWED_HOSTS = ['35.192.94.228']
 
 # Application definition
 
@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'studentoperation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        # 'HOST': '/cloudsql/studentproject-277208:us-central1:student-app-iinstance',
-        'HOST':'35.193.123.96',
+        'HOST': '/cloudsql/studentproject-277208:us-central1:student-app-iinstance',
+        #'HOST':'35.193.123.96',
         'USER': 'root',
         'PASSWORD': 'wlentICBgjJ1zHhx',
-        'NAME': 'studentop',
+        'NAME': 'studentop', #'studentop',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",  # Bug Fix: Multiple ForeignKey in Admin
         },
