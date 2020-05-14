@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'studentoperation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '/cloudsql/studentproject-277208:us-central1:student-app-iinstance ',
+        'HOST': '/cloudsql/studentproject-277208:us-central1:student-app-iinstance',
         'USER': 'root',
         'PASSWORD': 'wlentICBgjJ1zHhx',
         'NAME': 'studentop',
